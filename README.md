@@ -10,6 +10,14 @@ The game runs offline. Full Setup Verification additionally requires your
 chosen provider's live-model access and a successful live CI run. The instructor
 must verify student access to the repository before assigning the fork workflow.
 
+**Setup dates:** September 18 is the offline checkpoint: environment, a
+running game, Git/gh access, local tests and deterministic CI. University
+Google credits and individual Google Cloud projects begin in Week 2,
+September 21. Full verification, including local and manually authorized CI
+live checks, is due September 28. Report institutional access delays for an
+adjusted verification date without penalty; continue the reflection and
+design work. Buying API credits or a subscription is optional.
+
 ## Course choice and this example
 
 Quick navigation: [Setup](#1-prepare-this-examples-environment) ·
@@ -127,8 +135,10 @@ All live providers require `COURSE_MODEL`, set to your chosen API model ID:
 | `anthropic` | `ANTHROPIC_API_KEY` | Actions secret `ANTHROPIC_API_KEY` |
 | `openai` | `OPENAI_API_KEY` | Actions secret `OPENAI_API_KEY` |
 
-For Vertex AI, the instructor supplies the project, location, access
-instructions and funded model options. Install the
+For Vertex AI, use your own course Google Cloud project, linked to your
+eligible course-credit billing account. In Week 2, the instructor supplies
+credit redemption and project-setup instructions, supported locations and
+verified funded model options. Do not use another student's project. Install the
 [Google Cloud CLI](https://cloud.google.com/sdk/docs/install). For an
 approved individual account, local login normally uses
 `gcloud auth application-default login`. An AI Studio key is a different
@@ -187,7 +197,7 @@ Pushes and PRs run deterministic checks on Python 3.11 and 3.12, including
 mocked adapter tests with no model traffic. Enable Actions on your fork if
 prompted. Review and push a small README edit to trigger those checks.
 
-For the manual live check, set repository variable `COURSE_MODEL` to the
+After Week 2 funded setup, for the manual live check, set repository variable `COURSE_MODEL` to the
 model for your selected provider, plus the provider-specific configuration
 in the table above. API keys go in Actions **secrets**, never variables.
 Only the selected provider's step receives its key.
@@ -204,12 +214,14 @@ The live job is restricted to manual dispatch on the default branch.
 Review workflow/code changes before running it with credentials.
 PRs receive no model credentials. A skipped live job is not a live pass.
 
-Setup Verification evidence: a successful local live check with your chosen
+Full Setup Verification evidence, due September 28: a successful local live check with your chosen
 provider, a visible local engine check, and a workflow run with deterministic
 and live jobs passing. Record provider and model with the evidence.
 If access is delayed, submit the explicit offline report and bring the
 access failure to setup office hours. The instructor must resolve access
-before recording full verification; buying an alternative is optional.
+before recording full verification and arrange an adjusted date without
+penalty for institutional delays. The September 18 offline checkpoint does
+not require live calls; buying an alternative is optional.
 
 ## 5. Carry this into the projects
 
