@@ -46,18 +46,32 @@ Install Python 3.11 or later, Git, the GitHub CLI and uv. Use the official
 for macOS, Windows or Linux. Run the following in your terminal:
 
 ```sh
+gh auth status
 python --version
 git --version
 gh --version
+```
+
+If `gh auth status` confirms you are logged in to GitHub.com with the intended
+account, keep that existing login. If you are not logged in or the credentials
+are invalid, authenticate and check again:
+
+```sh
 gh auth login
+gh auth status
 ```
 
 Use `python3` if your installation exposes that name. After the instructor
-publishes the starter, fork and clone it:
+confirms repository access and enables forking, fork and clone it:
 
 ```sh
 gh repo fork columbia-university-ai-games/game-dev-f26 --clone
 ```
+
+If forking is unavailable, contact the instructor. Private-repository forking
+depends on both organization and repository policy; logging in again will
+not resolve a policy restriction. Do not change repository visibility to
+work around it.
 
 Open a terminal **inside your cloned folder** for all remaining commands:
 
