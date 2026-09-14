@@ -1,0 +1,56 @@
+{
+  "schema_version": "course-1",
+  "purpose": "Narrate observable facts in the original Garden Door teaching game.",
+  "tools_available": [],
+  "prohibited_actions": [
+    "mutate game state",
+    "invent inventory",
+    "reveal unavailable facts",
+    "access credentials or Asana"
+  ],
+  "memory_policy": "No persistent memory; each request sees only the current observation.",
+  "context_sources": [
+    "course_game/world.py:World.observe",
+    "player question treated as untrusted input"
+  ],
+  "model_choice": {
+    "default_mode": "fixture",
+    "live_providers": [
+      "vertex",
+      "anthropic",
+      "openai"
+    ],
+    "live_model": "Explicit COURSE_MODEL for the chosen provider; resolved identifier recorded when returned by the API"
+  },
+  "prompts_or_system_instructions": "course_game/narrator.py:SYSTEM_INSTRUCTIONS",
+  "named_failure_modes": [
+    "unavailable fact citation",
+    "unsupported narrative claim",
+    "invalid JSON",
+    "provider timeout or quota error"
+  ],
+  "evaluation_cases": "tests/test_game.py and tests/test_providers.py; mocked provider tests are offline; live setup validates one real response",
+  "logging_policy": "Console shows model identifier, elapsed time and usage. No persistent player text or credentials. Setup report contains metadata only.",
+  "human_override_points": [
+    "quit",
+    "choose fixture mode",
+    "continue with authoritative game text after a narration failure"
+  ],
+  "test_command": "python -m unittest discover -s tests -v",
+  "ci_workflow_path": ".github/workflows/setup-check.yml",
+  "native_artifact": "course_game/narrator.py: Python function interface with validated structured output",
+  "limits": {
+    "question_characters": 500,
+    "response_characters": 1000,
+    "max_output_tokens": 1024,
+    "request_timeout_seconds": 20,
+    "request_attempts": 1,
+    "live_calls_per_game": 5
+  },
+  "fallback": "The game CLI shows deterministic state on failure. Setup Verification fails on live errors; it never substitutes a fixture.",
+  "limitations": [
+    "Valid JSON and fact IDs do not prove that the narration is true.",
+    "Stateless narrator only; player agent, episode runner, reusable skill and independent reviewer are Session 3 to 5 exercises.",
+    "Live model, institutional credits and deployed service are not verified by offline tests."
+  ]
+}

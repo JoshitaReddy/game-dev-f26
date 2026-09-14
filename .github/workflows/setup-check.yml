@@ -1,0 +1,77 @@
+name: Setup and deterministic checks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      live:
+        description: Explicitly authorize one live request using the selected provider
+        type: boolean
+        default: false
+      provider:
+        description: Live model provider (choose only one)
+        type: choice
+        options: [vertex, anthropic, openai]
+        default: vertex
+
+permissions:
+  contents: read
+
+jobs:
+  deterministic:
+    name: Deterministic checks (Python ${{ matrix.python }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        python: ['3.11', '3.12']
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: ${{ matrix.python }}
+      - run: uv sync --frozen
+      - run: uv run --frozen python -m unittest discover -s tests -v
+      - run: uv run --frozen python -m course_game.setup_check --offline --headless
+
+  live-model:
+    name: Live Setup Verification (manual)
+    if: github.event_name == 'workflow_dispatch' && inputs.live && github.ref_name == github.event.repository.default_branch
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GOOGLE_CLOUD_PROJECT: ${{ vars.GOOGLE_CLOUD_PROJECT }}
+      GOOGLE_CLOUD_LOCATION: ${{ vars.GOOGLE_CLOUD_LOCATION }}
+      COURSE_MODEL: ${{ vars.COURSE_MODEL }}
+      COURSE_PROVIDER: ${{ inputs.provider }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: '3.12'
+      - run: uv sync --frozen
+      - uses: google-github-actions/auth@v2
+        if: inputs.provider == 'vertex'
+        with:
+          workload_identity_provider: ${{ vars.WIF_PROVIDER }}
+          service_account: ${{ vars.COURSE_SERVICE_ACCOUNT }}
+      - name: Live Vertex AI check
+        if: inputs.provider == 'vertex'
+        run: uv run --frozen python -m course_game.setup_check --provider "$COURSE_PROVIDER" --headless
+      - name: Live Anthropic check
+        if: inputs.provider == 'anthropic'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: uv run --frozen python -m course_game.setup_check --provider "$COURSE_PROVIDER" --headless
+      - name: Live OpenAI check
+        if: inputs.provider == 'openai'
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: uv run --frozen python -m course_game.setup_check --provider "$COURSE_PROVIDER" --headless

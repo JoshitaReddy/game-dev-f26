@@ -1,0 +1,9 @@
+[project]
+name = "game-dev-f26"
+version = "0.1.0"
+description = "AI in Practice: Game Design and Development student starter"
+requires-python = ">=3.11"
+dependencies = ["google-genai>=1.0,<3", "anthropic>=0.84,<1", "openai>=2.0,<3", "pyxel>=2.5,<3"]
+
+[tool.uv]
+package = false
