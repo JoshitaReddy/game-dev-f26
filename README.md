@@ -6,17 +6,19 @@ syllabus on CourseWorks governs assignments. This starter contains an original
 three-room game, **The Garden Door**, an optional model narrator, tests and
 the Setup Verification workflow. It contains no Infocom source or assets.
 
-The game runs offline. Full Setup Verification additionally requires your
-chosen provider's live-model access and a successful live CI run. The instructor
+The game runs offline. The setup diagnostics can also check your chosen
+provider's live-model access and manually authorized live CI. The instructor
 must verify student access to the repository before assigning the fork workflow.
 
-**Setup dates:** September 18 is the offline checkpoint: environment, a
-running game, Git/gh access, local tests and deterministic CI. University
-Google credits and individual Google Cloud projects begin in Week 2,
-September 21. Full verification, including local and manually authorized CI
-live checks, is due September 28. Report institutional access delays for an
-adjusted verification date without penalty; continue the reflection and
-design work. Buying API credits or a subscription is optional.
+**Setup preparation:** aim for offline readiness by September 18: environment,
+a running game, Git/gh access, local tests and deterministic CI. University
+Google credits and individual Google Cloud projects begin September 21;
+aim for live readiness by September 28. Setup has no separate grade or
+verification submission. Report access delays for instructor support and
+continue the reflection and design work; optional purchases are unnecessary.
+The diagnostic's “Setup Verification” labels describe technical check results,
+not a separate course assignment. Project tests and live evaluations remain
+required evidence for the midterm and final.
 
 ## Course choice and this example
 
@@ -214,21 +216,19 @@ The live job is restricted to manual dispatch on the default branch.
 Review workflow/code changes before running it with credentials.
 PRs receive no model credentials. A skipped live job is not a live pass.
 
-Full Setup Verification evidence, due September 28: a successful local live check with your chosen
-provider, a visible local engine check, and a workflow run with deterministic
-and live jobs passing. Record provider and model with the evidence.
-If access is delayed, submit the explicit offline report and bring the
-access failure to setup office hours. The instructor must resolve access
-before recording full verification and arrange an adjusted date without
-penalty for institutional delays. The September 18 offline checkpoint does
-not require live calls; buying an alternative is optional.
+For your own readiness checks, confirm the game runs locally, deterministic
+tests pass locally and in CI, and the selected live path succeeds when funded
+access is available. Record provider/model information with project evaluations.
+Setup reports can help diagnose access failures; no separate verification
+submission is required. The instructor provides support for institutional
+access delays. Offline checks require no paid calls.
 
 ## 5. Carry this into the projects
 
 In Session 2, choose a classic game and a bounded reconstruction with clear
 rules, source evidence and an ending or episode limit. Infocom is one sample
 set; other classic titles and genres are encouraged. In Session 3, configure
-your building crew and define the observation/action interface for an agent
+your building agent team and define the observation/action interface for an agent
 that plays the game. In Session 4, add a scripted or search baseline and
 deterministic episode tests. In Session 5, compare a model-driven player with
 that baseline, including its information and memory needs.
