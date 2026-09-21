@@ -263,7 +263,6 @@ failure modes, test commands and CI; native plugin/skill formats stay distinct.
 | [pyproject.toml](pyproject.toml) and [uv.lock](uv.lock) | Example dependencies and reproducible versions |
 | [.env.example](.env.example) | Non-secret setup variable guide |
 | [AGENTS.md](AGENTS.md) | Instructions for development agents |
-| [VOCABULARY.md](VOCABULARY.md) | Course vocabulary, one section per week, with sources |
 
 ## Troubleshooting
 
